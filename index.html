@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#16756f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Skyjo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="description" content="Skyjo pass-and-play -peli 2-8 pelaajalle, toimii myös offline-tilassa.">
+    <title>Skyjo iPad</title>
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="icons/icon-180.png">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app">
+      <section id="setup" class="setup-screen">
+        <div class="brand">
+          <p class="eyebrow">Skyjo pass-and-play</p>
+          <h1>Skyjo</h1>
+          <p>Pelaa samalla iPadilla 2-8 pelaajalla. Sovellus hoitaa pakan, poistot, loppukierroksen ja pisteet.</p>
+        </div>
+
+        <form id="setup-form" class="setup-panel">
+          <label>
+            Pelaajamäärä
+            <select id="player-count">
+              <option>2</option>
+              <option>3</option>
+              <option selected>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+            </select>
+          </label>
+
+          <div id="name-fields" class="name-fields"></div>
+
+          <button class="primary" type="submit">Aloita peli</button>
+        </form>
+      </section>
+
+      <section id="game" class="game-screen hidden">
+        <header class="topbar">
+          <div>
+            <p id="round-label" class="eyebrow">Kierros 1</p>
+            <h2 id="status-title">Valmistelu</h2>
+            <p id="status-text">Avaa aloituskortit.</p>
+          </div>
+          <div class="top-actions">
+            <button id="rules-button" class="ghost" type="button">Säännöt</button>
+            <button id="new-game-button" class="ghost" type="button">Uusi peli</button>
+          </div>
+        </header>
+
+        <section class="table">
+          <aside class="center-panel">
+            <div class="pile-row">
+              <button id="draw-pile" class="pile draw-pile" type="button">
+                <span>Nosto</span>
+                <strong id="deck-count">0</strong>
+              </button>
+              <button id="discard-pile" class="pile discard-pile" type="button">
+                <span>Poisto</span>
+                <strong id="discard-value">?</strong>
+              </button>
+            </div>
+
+            <div id="drawn-card-panel" class="drawn-card-panel hidden">
+              <p>Nostettu kortti</p>
+              <div id="drawn-card" class="card revealed">0</div>
+              <button id="reject-drawn" class="secondary" type="button">Hylkää ja avaa kortti</button>
+            </div>
+
+            <div class="scoreboard">
+              <h3>Pisteet</h3>
+              <div id="scoreboard"></div>
+            </div>
+          </aside>
+
+          <section id="players" class="players"></section>
+        </section>
+      </section>
+
+      <dialog id="rules-dialog" class="rules-dialog">
+        <article>
+          <header>
+            <h2>Täydentävät säännöt</h2>
+            <button id="close-rules" class="icon-button" type="button" aria-label="Sulje">×</button>
+          </header>
+          <dl>
+            <dt>Pakka</dt>
+            <dd>150 korttia: -2 x 5, -1 x 10, 0 x 15 ja jokaista arvoa 1-12 on 10.</dd>
+            <dt>Aloitus</dt>
+            <dd>Jokaiselle jaetaan 12 korttia 4 sarakkeeseen ja 3 riviin. Jokainen avaa kaksi korttia; suurin avattujen summa aloittaa ensimmäisen kierroksen.</dd>
+            <dt>Vuoro</dt>
+            <dd>Poistopakan kortti on aina vaihdettava omaan korttiin. Nostopakan kortin voi vaihtaa tai hylätä; jos hylkäät, avaa yksi oma kuvapuoli alaspäin oleva kortti.</dd>
+            <dt>Sarakkeen poisto</dt>
+            <dd>Kun pystysarakkeen kaikki kolme korttia ovat auki ja samaa arvoa, koko sarake poistuu pisteistä.</dd>
+            <dt>Loppu</dt>
+            <dd>Kun pelaaja saa kaikki jäljellä olevat korttinsa auki, muut saavat vielä yhden vuoron. Kierroksen päättäjän positiivinen pistemäärä tuplataan, ellei se ole yksin pienin.</dd>
+          </dl>
+          <p class="source-note">Lähteet: mukana oleva englanninkielinen sääntö-PDF, skyjo.de ja skyjo.co.uk.</p>
+        </article>
+      </dialog>
+
+      <dialog id="round-dialog" class="round-dialog">
+        <article>
+          <h2 id="round-result-title">Kierros valmis</h2>
+          <div id="round-results"></div>
+          <button id="continue-button" class="primary" type="button">Seuraava kierros</button>
+        </article>
+      </dialog>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
