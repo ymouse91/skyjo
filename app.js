@@ -116,18 +116,16 @@ function updateNameFields() {
     input.autocomplete = "off";
     label.append(input);
 
-    const typeLabel = document.createElement("label");
-    typeLabel.textContent = "Tyyppi";
-    const select = document.createElement("select");
-    select.className = "player-type-select";
-    select.name = `player-type-${i}`;
-    select.innerHTML = `
-      <option value="human">Ihminen</option>
-      <option value="ai">Tekoäly</option>
-    `;
-    typeLabel.append(select);
+    const aiLabel = document.createElement("label");
+    aiLabel.className = "player-ai-label";
+    aiLabel.textContent = "AI";
+    const aiCheckbox = document.createElement("input");
+    aiCheckbox.className = "player-ai-checkbox";
+    aiCheckbox.name = `player-ai-${i}`;
+    aiCheckbox.type = "checkbox";
+    aiLabel.append(aiCheckbox);
 
-    row.append(label, typeLabel);
+    row.append(label, aiLabel);
     els.nameFields.append(row);
   }
 }
@@ -137,12 +135,12 @@ function startGame(event) {
   const rows = [...els.nameFields.querySelectorAll(".player-setup-row")];
   const players = rows.map((row, index) => {
     const input = row.querySelector(".player-name-input");
-    const type = row.querySelector(".player-type-select").value;
-    const defaultName = type === "ai" ? `Tekoäly ${index + 1}` : `Pelaaja ${index + 1}`;
+    const isAi = row.querySelector(".player-ai-checkbox").checked;
+    const defaultName = isAi ? `Tekoäly ${index + 1}` : `Pelaaja ${index + 1}`;
     const name = input.value.trim() || defaultName;
     return {
       name,
-      isAi: type === "ai",
+      isAi,
       score: 0,
       roundScore: 0,
       board: [],

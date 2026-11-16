@@ -135,6 +135,18 @@ select {
   align-items: end;
 }
 
+.player-ai-label {
+  align-items: center;
+  justify-items: center;
+}
+
+.player-ai-checkbox {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  accent-color: var(--teal);
+}
+
 .primary,
 .secondary,
 .ghost {
